@@ -38,8 +38,8 @@ RollingAverage <int, 32> kAverage; // how_many_to_average has to be power of 2
 int averaged;
 byte pinpin=1;
 
-float mfrq1=2.0;
-float mfrq2=0.2;
+float mfrq1=1.0;
+float mfrq2=0.4;
 
 
 void setup(){
@@ -68,7 +68,7 @@ void updateControl(){
    //mfrq1 = 2.0 / (pinpin);
    //mfrq2 = 0.2 * (pinpin);
   
-  long ADCval_0 = (5*mozziAnalogRead(INPUT_PIN0));
+  long ADCval_0 = (3*mozziAnalogRead(INPUT_PIN0));
   long ADCval_1 = mozziAnalogRead(INPUT_PIN1);
   long ADCval_2 = mozziAnalogRead(INPUT_PIN2);
 
@@ -86,7 +86,7 @@ void updateControl(){
   Serial.print(val);Serial.print("\t");
   */
   
-  if (ADCval_0 < 26) averaged=0;
+  //if (ADCval_0 < 26) averaged=0;
   //Serial.print("\t"); Serial.print(ADCval_0);
   //Serial.println("");
 
