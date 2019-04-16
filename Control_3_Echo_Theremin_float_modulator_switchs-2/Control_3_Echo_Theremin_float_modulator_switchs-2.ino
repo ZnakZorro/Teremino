@@ -38,14 +38,14 @@ RollingAverage <int, 32> kAverage; // how_many_to_average has to be power of 2
 int averaged;
 byte pinpin=1;
 
-float mfrq1=1.0;
-float mfrq2=0.4;
+float mfrq1=3.0;
+float mfrq2=0.1;
 
 
 void setup(){
   pinMode(dpinIN0, INPUT_PULLUP);
   pinMode(dpinIN1, INPUT_PULLUP);
-  Serial.begin(9600);
+  //Serial.begin(9600);
   kDelay.set(echo_cells_1);
   startMozzi();
   
@@ -112,8 +112,8 @@ void updateControl(){
   
   //aSin0.setFreq(averaged);
   aSin1.setFreq(kDelay.next(averaged));
-  aSin2.setFreq(kDelay.read(echo_cells_3));
-  aSin3.setFreq(kDelay.read(echo_cells_4));
+  aSin2.setFreq(kDelay.read(echo_cells_1));
+  aSin3.setFreq(kDelay.read(echo_cells_3));
 }
 
 
