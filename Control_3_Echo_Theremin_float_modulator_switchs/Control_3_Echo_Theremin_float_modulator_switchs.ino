@@ -57,14 +57,14 @@ int licznik=0;
 
 void updateControl(){
   licznik++;
-       /*if (digitalRead(STOP_PIN) == HIGH) 
-       pinpin = (digitalRead(dpinIN0) && 1) <<1;
-       pinpin = (digitalRead(dpinIN1) && pinpin);
-       pinpin++;*/
-   if (licznik % 128 == 0) {pinpin = rand(4);pinpin++;}  // symulacja
+       byte pinpin1 = (digitalRead(dpinIN0) && 1) <<1;
+       byte pinpin2 = (digitalRead(dpinIN1) && 1);
+       pinpin = pinpin1+pinpin2+1;
+   //if (licznik % 128 == 0) {pinpin = rand(4);pinpin++;}  // symulacja
       
-      
-   Serial.print("pinpin="); Serial.print(pinpin); 
+   //Serial.print(digitalRead(dpinIN0));   
+   //Serial.print(digitalRead(dpinIN1));   
+   //Serial.print(" pinpin="); Serial.print(pinpin); 
    mfrq1 = 2.0 / (pinpin*pinpin);
    mfrq2 = 0.2 * (pinpin*pinpin);
   
@@ -89,18 +89,17 @@ void updateControl(){
     //Serial.println(averaged);
   }
   if (ADCval_0 < 26) averaged=0;
-  Serial.print("\t"); Serial.print(ADCval_0);
-  Serial.println("");
+  //Serial.print("\t"); Serial.print(ADCval_0);
+  //Serial.println("");
 
 
 /*******************************************************/
       switch (pinpin) {
-        //case 1: {byte midi_note = rand(107)+20; aSin0.setFreq((int)mtof(midi_note));}break;
-        case 1: {byte midi_note = 120-(licznik % 100); aSin0.setFreq((int)mtof(midi_note));}break;
-        case 2: {byte midi_note = (licznik % 100)+20;  aSin0.setFreq((int)mtof(midi_note));}break;
-        case 3: {aSin0.setFreq(averaged);}break;
-        case 4: {aSin0.setFreq(3*averaged);}break;
-      }
+        case 1: {aSin0.setFreq(averaged);}break;
+        case 2: {aSin0.setFreq(3*averaged);}break;
+        case 3: {byte midi_note = 120-((licznik/3) % 100); aSin0.setFreq((int)mtof(midi_note));}break;
+        case 4: {byte midi_note = ((licznik/6) % 100)+20;  aSin0.setFreq((int)mtof(midi_note));}break;
+       }
 /*********************************************************/
 
 
